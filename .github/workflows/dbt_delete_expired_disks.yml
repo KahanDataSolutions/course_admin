@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  delete_expired_disks:
     runs-on: ubuntu-latest
 
     steps:
