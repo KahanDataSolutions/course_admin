@@ -1,0 +1,34 @@
+name: dbt_delete_expired_disks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCLOUD_KEYFILE }}'
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 363.0.0'
+          project_id: 'kds-dbt-training'
+  
+      - name: Delete expired disks
+        run: |
+          six_months_ago=$(date -d "6 months ago" --utc +%Y-%m-%dT%H:%M:%S)
+          disks_to_update=$(gcloud compute disks list --filter="creationTimestamp<'${six_months_ago}' AND NOT(name='coder-hosted-vm')" --format="value(name)")
+          
+          for disk in $disks_to_update
+          do
+            echo "Updating disk: $disk"
+          done
