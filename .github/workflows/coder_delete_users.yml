@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  delete-coder-users:
     runs-on: ubuntu-latest
      
     steps:
@@ -30,4 +30,4 @@ jobs:
           ssh_private_key: '${{ secrets.VM_SSH_PRIVATE_KEY }}'
           command: |
             coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
-            coder users delete student999
+            yes | coder users delete student999
