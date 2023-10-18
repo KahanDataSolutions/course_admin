@@ -6,10 +6,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      CODER_URL: ${{ secrets.CODER_URL }}
-      CODER_SESSION_TOKEN: ${{ secrets.CODER_SESSION_TOKEN }}
-      
+     
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
@@ -32,5 +29,5 @@ jobs:
           zone: 'us-central1-a'
           ssh_private_key: '${{ secrets.VM_SSH_PRIVATE_KEY }}'
           command: |
-            coder login ${{ secrets.CODER_URL }}
+            coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
             coder users list
