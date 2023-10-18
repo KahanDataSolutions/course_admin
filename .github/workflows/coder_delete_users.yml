@@ -1,0 +1,21 @@
+name: coder_delete_users
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      CODER_URL: ${{ secrets.CODER_URL }}
+      CODER_SESSION_TOKEN: ${{ secrets.CODER_SESSION_TOKEN }}
+      
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Coder
+        run: coder login ${{ secrets.CODER_URL }}
+  
+      - name: Delete expired disks
+        run: coder users list
