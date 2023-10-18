@@ -14,6 +14,23 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
 
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCLOUD_KEYFILE }}'
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 363.0.0'
+          project_id: 'kds-dbt-training'
+
+      - name: SSH into VM
+        run: >
+          gcloud compute ssh michael@coder-hosted-vm
+          --zone=us-central1-a
+          --ssh-key-file=$(realpath ~/.ssh/coder-ssh-key.pub)
+
       - name: Authenticate to Coder
         run: coder login ${{ secrets.CODER_URL }}
   
