@@ -30,4 +30,4 @@ jobs:
           ssh_private_key: '${{ secrets.VM_SSH_PRIVATE_KEY }}'
           command: |
             coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
-            coder users list
+            coder users delete student999
