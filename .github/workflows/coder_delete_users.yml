@@ -25,14 +25,15 @@ jobs:
           version: '>= 363.0.0'
           project_id: 'kds-dbt-training'
 
-      - name: SSH into VM
-        run: >
-          gcloud compute ssh michael@coder-hosted-vm
-          --zone=us-central1-a
-          --ssh-key-file=$(realpath ~/.ssh/coder-ssh-key.pub)
+      - id: 'compute-ssh'
+        uses: 'google-github-actions/ssh-compute@v0'
+        with:
+          instance_name: 'coder-hosted-vm'
+          zone: 'us-central1-a'
+          ssh_private_key: '${{ secrets.VM_SSH_PRIVATE_KEY }}'
+          command: 'coder login ${{ secrets.CODER_URL }} && coder users list'
 
-      - name: Authenticate to Coder
-        run: coder login ${{ secrets.CODER_URL }}
-  
-      - name: Delete expired disks
-        run: coder users list
+      - id: 'test'
+        run: |-
+          echo '${{ steps.compute-ssh.outputs.stdout }}'
+          echo '${{ steps.compute-ssh.outputs.stderr }}'
