@@ -31,7 +31,7 @@ jobs:
           instance_name: 'coder-hosted-vm'
           zone: 'us-central1-a'
           ssh_private_key: '${{ secrets.VM_SSH_PRIVATE_KEY }}'
-          command: 'coder login ${{ secrets.CODER_URL }} && coder users list'
+          command: 'echo Hello world'
 
       - id: 'test'
         run: |-
