@@ -11,8 +11,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
 
-      - id: auth
-        name: Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
           credentials_json: '${{ secrets.GCLOUD_KEYFILE }}'
@@ -26,9 +25,10 @@ jobs:
       - name: Delete expired disks
         run: |
           six_months_ago=$(date -d "6 months ago" --utc +%Y-%m-%dT%H:%M:%S)
-          disks_to_update=$(gcloud compute disks list --filter="creationTimestamp<'${six_months_ago}' AND NOT(name='coder-hosted-vm')" --format="value(name)")
+          disks_to_delete=$(gcloud compute disks list --filter="creationTimestamp<'${six_months_ago}' AND NOT(name='coder-hosted-vm')" --format="value(name)")
           
-          for disk in $disks_to_update
+          for disk in $disks_to_delete
           do
-            echo "Updating disk: $disk"
+            echo "Deleting disk: $disk"
+            gcloud compute disks delete $disk --project=kds-dbt-training --zone=us-central1-a --quiet
           done
