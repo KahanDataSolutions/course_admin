@@ -1,6 +1,9 @@
 name: dbt_delete_expired_disks
 
 on:
+  schedule:
+    - cron: '0 5 * * *'
+
   workflow_dispatch:
 
 jobs:
