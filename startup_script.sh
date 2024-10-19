@@ -44,3 +44,6 @@ set -e
     echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
     source ~/.bashrc
 
+    # Run Docker Compose
+    sudo docker compose up -d
+
