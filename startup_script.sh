@@ -36,8 +36,12 @@ set -e
     
 
     # Capture IP Address
-    hostname -I >> environment/ip_address.txt
-    
+    if [ -f environment/ip_address.txt ]; then
+        > environment/ip_address.txt
+        hostname -I >> environment/ip_address.txt
+    else
+        hostname -I >> environment/ip_address.txt
+    fi
 
     # Install SlingData
     pip install sling
