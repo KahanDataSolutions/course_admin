@@ -1,4 +1,19 @@
 services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      network:
+        ipv4_address: 172.99.0.2
+
   cloudbeaver:
     image: dbeaver/cloudbeaver:latest
     restart: always
