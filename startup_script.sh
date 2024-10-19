@@ -46,17 +46,12 @@ set -e
 
     # Capture IP Address
     hostname -I >> environment/ip_address.txt
-
-    # Install Cloudbeaver
-    sudo docker pull dbeaver/cloudbeaver:latest
-    sudo docker run --name cloudbeaver -d -p 8200:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest --restart always
-
-    # Install Metabase
-    sudo docker pull metabase/metabase:latest
-    sudo docker run --name metabase --rm -p 3000:3000 metabase/metabase -d --restart always
-
+    
 
     # Install SlingData
     pip install sling
     echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
     source ~/.bashrc
+
+    # Run Docker Compose (Cloudbeaver & Metabase)
+    sudo docker compose up
