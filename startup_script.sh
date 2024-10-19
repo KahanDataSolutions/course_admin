@@ -28,15 +28,6 @@ set -e
     sudo usermod -aG docker $USER
     sudo newgrp docker
     sudo systemctl restart docker
-
-    # Install PostgreSQL
-    sudo apt-get update -y
-    sudo apt install postgresql postgresql-contrib -y
-
-    # Allow all IPs in pg_hba.conf
-    sudo sed -i '96 a host    all             all             0.0.0.0/0            md5' /etc/postgresql/13/main/pg_hba.conf
-    sudo systemctl restart postgresql
-    sudo systemctl enable postgresql
    
 
     # Create placeholder directories
@@ -53,5 +44,3 @@ set -e
     echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
     source ~/.bashrc
 
-    # Run Docker Compose (Cloudbeaver & Metabase)
-    sudo docker compose up
