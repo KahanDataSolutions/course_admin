@@ -1,0 +1,35 @@
+services:
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    restart: always
+    ports:
+      - "8200:8978"
+    volumes:
+      - .workspace:/opt/cloudbeaver/workspace
+    networks:
+      network:
+        ipv4_address: 172.99.0.3
+
+  metabase:
+    image: metabase/metabase:latest
+    restart: always
+    depends_on:
+      - postgres
+      - cloudbeaver
+    ports:
+      - "3000:3000"
+    networks:
+      network:
+        ipv4_address: 172.99.0.4
+
+volumes:
+  data:
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.99.0.0/16
+          gateway: 172.99.0.1
