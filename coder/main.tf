@@ -126,7 +126,7 @@ resource "google_compute_instance" "dev" {
   zone         = var.project_zone
   count        = data.coder_workspace.me.start_count
   name         = "coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-root"
-  machine_type = "e2-small"
+  machine_type = "e2-medium"
   network_interface {
     network = "default"
     access_config {
