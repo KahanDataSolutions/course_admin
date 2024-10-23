@@ -17,14 +17,13 @@ variable "project_id" {
   default = "data-playbooks"
 }
 
-data "coder_parameter" "zone" {
-  name         = "zone"
-  description  = "Which zone should your workspace live in?"
-  default      = "us-central1-a"
+variable "project_zone" {
+  description = "Which zone should your workspace live in?"
+  default = "us-central1-a"
 }
 
 provider "google" {
-  zone    = data.coder_parameter.zone.value
+  zone    = var.project_zone
   project = var.project_id
   credentials = file("data-playbooks-086527a43797.json")
 }
@@ -40,7 +39,7 @@ resource "google_compute_disk" "root" {
   name  = "coder-${data.coder_workspace.me.id}-root"
   type  = "pd-ssd"
   size = 20
-  zone  = data.coder_parameter.zone.value
+  zone  = var.project_zone
   image = "debian-cloud/debian-11"
   lifecycle {
     ignore_changes = [name, image]
@@ -124,7 +123,7 @@ resource "coder_app" "code-server" {
 }
 
 resource "google_compute_instance" "dev" {
-  zone         = data.coder_parameter.zone.value
+  zone         = var.project_zone
   count        = data.coder_workspace.me.start_count
   name         = "coder-${lower(data.coder_workspace_owner.me.name)}-${lower(data.coder_workspace.me.name)}-root"
   machine_type = "e2-small"
