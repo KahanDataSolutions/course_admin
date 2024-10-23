@@ -1,3 +1,12 @@
+# Create placeholder directories
+mkdir -p developer/
+mkdir -p environment/
+
+echo "Download files from GitHub"
+curl -o environment/docker-compose.yml https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/docker-compose.yml
+curl -o environment/pg_hba.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/pg_hba.conf
+curl -o environment/postgresql.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/postgresql.conf
+    
 # Install the latest code-server.
 # Append "--version x.x.x" to install a specific version of code-server.
 curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix=/tmp/code-server
@@ -26,10 +35,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo usermod -aG docker $USER
 sudo newgrp docker
 sudo systemctl restart docker
-
-# Create placeholder directories
-mkdir -p developer/
-mkdir -p environment/
 
 # Capture VM IP Address
 curl ifconfig.me > environment/ip_address.txt
