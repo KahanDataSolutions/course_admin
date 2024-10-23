@@ -43,4 +43,5 @@ curl ifconfig.me > environment/ip_address.txt
 echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
 
 # Pull Docker Images
+cd environment
 sudo docker compose pull
