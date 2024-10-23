@@ -27,19 +27,12 @@ sudo usermod -aG docker $USER
 sudo newgrp docker
 sudo systemctl restart docker
 
-
 # Create placeholder directories
 mkdir -p developer/
 mkdir -p environment/
 
-
-# Capture IP Address
-if [ -f environment/ip_address.txt ]; then
-    > environment/ip_address.txt
-    hostname -I >> environment/ip_address.txt
-else
-    hostname -I >> environment/ip_address.txt
-fi
+# Capture VM IP Address
+curl ifconfig.me > environment/ip_address.txt
 
 # Install SlingData
 pip install sling
