@@ -40,15 +40,6 @@ echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
 source ~/.bashrc
 
 # Run Docker Compose
+cd environment
 sudo docker compose up -d
-
-# Install Airbyte
-# tar -xvzf abctl.tar.gz
-# mv abctl-v0.19.0-linux-amd64 abctl
-# chmod +x abctl/abctl
-# sudo mv abctl/abctl /usr/local/bin
-# export PATH="$PATH:/usr/local/bin/abctl"
-# abctl version
-# sudo usermod -aG docker $USER
-# source ~/.bashrc
 

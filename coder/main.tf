@@ -55,10 +55,10 @@ resource "coder_agent" "main" {
     set -e
 
     echo "Download files from GitHub"
-    curl -o startup-script.sh https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/startup_script.sh
-    curl -o docker-compose.yml https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/docker-compose.yml
-    curl -o pg_hba.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/pg_hba.conf
-    curl -o postgresql.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/postgresql.conf
+    curl -o startup-script.sh https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/coder/startup_script.sh
+    curl -o environment/docker-compose.yml https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/docker-compose.yml
+    curl -o environment/pg_hba.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/pg_hba.conf
+    curl -o environment/postgresql.conf https://raw.githubusercontent.com/KahanDataSolutions/course_admin/refs/heads/main/environment/postgresql.conf
 
     echo "Make the script executable"
     chmod +x startup-script.sh
