@@ -39,26 +39,8 @@ sudo systemctl restart docker
 # Capture VM IP Address
 curl ifconfig.me > environment/ip_address.txt
 
-# Setup Virtual Environment
-cd environment
-python3 -m venv playground-env
-echo "" >> ~/.bashrc
-echo "alias playground-env='source /home/admin/environment/playground-env/bin/activate'" >> ~/.bashrc
-source ~/.bashrc
-
-# Activate Virtual Environment
-playground-env
-
-# Install SlingData
-pip install sling
-echo "" >> ~/.bashrc
+# Handle Warning for SlingData
 echo 'export DBUS_SESSION_BUS_ADDRESS=/dev/null' >> ~/.bashrc
-source ~/.bashrc
-
-# Install dbt Core (Postgres)
-pip install --upgrade requests
-pip install dbt-core==1.8.7
-pip install dbt-postgres==1.8.2
 
 # Pull Docker Images
 sudo docker compose pull
