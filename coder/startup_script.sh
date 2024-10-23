@@ -57,6 +57,7 @@ source ~/.bashrc
 
 # Install dbt Core (Postgres)
 pip install --upgrade requests
+pip install dbt-core==1.8.7
 pip install dbt-postgres==1.8.2
 
 # Pull Docker Images
